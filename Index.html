@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Ram Dulare Chauhan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00ff88;
+            --secondary-color: #00ccff;
+            --accent-color: #ff3366;
+            --dark-bg: #0a192f;
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .cursor-glow {
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            mix-blend-mode: screen;
+            z-index: 9999;
+            transition: transform 0.2s;
+            opacity: 0.5;
+        }
+
+        header {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(45deg, #0a192f, #112240);
+        }
+
+        .cyber-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(transparent 95%, var(--primary-color) 95%),
+                linear-gradient(90deg, transparent 95%, var(--primary-color) 95%);
+            background-size: 50px 50px;
+            opacity: 0.1;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            from { transform: translateY(0); }
+            to { transform: translateY(50px); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            padding: 2rem;
+        }
+
+        .glitch-text {
+            font-size: 4em;
+            font-weight: 800;
+            position: relative;
+            text-shadow: 
+                2px 2px var(--primary-color),
+                -2px -2px var(--secondary-color);
+            animation: glitchText 3s infinite;
+        }
+
+        @keyframes glitchText {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(2px, -2px); }
+            60% { transform: translate(-2px, -2px); }
+            80% { transform: translate(2px, 2px); }
+            100% { transform: translate(0); }
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            margin-top: 1rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards;
+            animation-delay: 0.5s;
+        }
+
+        section {
+            padding: 100px 5%;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5em;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--primary-color);
+            animation: lineWidth 1s forwards;
+            animation-play-state: paused;
+        }
+
+        section.visible .section-title::after {
+            animation-play-state: running;
+        }
+
+        @keyframes lineWidth {
+            to { width: 100%; }
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .skill-item {
+            background: var(--card-bg);
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .skill-item:hover::before {
+            left: 100%;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 0%, var(--primary-color), transparent);
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+        .project-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.1);
+        }
+
+        .project-title {
+            color: var(--primary-color);
+            font-size: 1.5em;
+            margin-bottom: 1rem;
+        }
+
+        .contact-section {
+            text-align: center;
+        }
+
+        .contact-link {
+            display: inline-block;
+            margin: 1rem;
+            padding: 1rem 2rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 30px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-link::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--primary-color);
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            transition: width 0.6s, height 0.6s;
+            z-index: -1;
+        }
+
+        .contact-link:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .contact-link:hover {
+            color: var(--dark-bg);
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .glitch-text {
+                font-size: 2.5em;
+            }
+            
+            .subtitle {
+                font-size: 1.2em;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+        }
+
+            /* Experience Section Styles */
+    .timeline {
+        position: relative;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .timeline-item {
+        background: var(--card-bg);
+        border-radius: 15px;
+        padding: 2rem;
+        margin: 2rem 0;
+        border-left: 4px solid var(--primary-color);
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .timeline-item:hover {
+        transform: translateX(10px);
+        box-shadow: 0 5px 15px rgba(0, 255, 136, 0.2);
+    }
+
+    .experience-date {
+        color: var(--primary-color);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .experience-title {
+        font-size: 1.5em;
+        color: var(--secondary-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .experience-company {
+        color: #fff;
+        font-weight: 500;
+        margin-bottom: 1rem;
+    }
+
+    .responsibilities {
+        list-style: none;
+    }
+
+    .responsibilities li {
+        margin: 0.5rem 0;
+        padding-left: 1.5rem;
+        position: relative;
+    }
+
+    .responsibilities li::before {
+        content: '▹';
+        position: absolute;
+        left: 0;
+        color: var(--primary-color);
+    }
+
+    /* Project Section Styles */
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        padding: 2rem 0;
+    }
+
+    .project-card {
+        background: var(--card-bg);
+        border-radius: 15px;
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .tech-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 1rem 0;
+    }
+
+    .tech-tag {
+        background: rgba(0, 255, 136, 0.1);
+        color: var(--primary-color);
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.9em;
+    }
+
+    .project-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .project-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .project-link:hover {
+        color: var(--secondary-color);
+    }
+
+    </style>
+</head>
+<body>
+       <div class="cursor-glow"></div>
+
+    <header>
+        <div class="cyber-grid"></div>
+        <div class="hero-content">
+            <h1 class="glitch-text">Ram Dulare Chauhan</h1>
+            <p class="subtitle">Full-Stack Developer | ASP.NET Core | Angular | SQL</p>
+        </div>
+    </header>
+
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <p>I am a results-driven full-stack Core developer with over 1.5 years of experience in designing, developing, and deploying scalable web and mobile solutions. My expertise lies in full-stack development, particularly with Angular, .NET Core, ASP.NET Core, and SQL Server. I have a proven track record of integrating third-party tools to create business-critical applications that enhance operational efficiency and improve user experiences.</p>
+    </section>
+
+    <section id="experience">
+        <h2 class="section-title">Professional Experience</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="experience-date">June 2024 - Present</div>
+                    <div class="experience-title">Junior Full-Stack Developer</div>
+                    <div class="experience-company">Ariespro Technology - Mohali</div>
+                    <ul class="responsibilities">
+                        <li>Developed and maintained enterprise applications using C#, .NET Core, and 
+                            JavaScript</li>
+                        <li>Implemented robust REST APIs for utility services project focused on customer 
+                            satisfaction</li>
+                        <li>Collaborated within a 7-member team on DUNCAN_DMS project</li>
+                        <li>Utilized Entity Framework and SQL Server for efficient data management</li>
+                        <li>Performed code reviews and implemented best practices for application 
+                            development</li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="experience-date">January 2023 - May 2024</div>
+                    <div class="experience-title">Junior Full Stack Developer</div>
+                    <div class="experience-company">Antvert Software Solution - Varanasi</div>
+                    <ul class="responsibilities">
+                        <li>Designed and developed full-stack web applications using C#, .NET Core, and Angular</li>
+                        <li>Created comprehensive matrimonial management system handling client profiles, 
+                            including Kundali, Gotra, and Religion modules</li>
+                        <li>Collaborated with 5-member team to implement REST APIs for client data 
+                            management</li>
+                        <li>Optimized database queries and maintained SQL Server databases</li>
+                        <li>Participated in Agile development processes and daily stand-ups</li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Your existing skills section -->
+    <section id="skills">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-container">
+            <div class="skill-item"><i class="fab fa-angular"></i> Angular</div>
+            <div class="skill-item"><i class="fab fa-html5"></i> HTML5</div>
+            <div class="skill-item"><i class="fab fa-css3-alt"></i> CSS3</div>
+            <div class="skill-item"><i class="fab fa-js"></i> JavaScript</div>
+            <div class="skill-item"><i class="fab fa-microsoft"></i> ASP.NET Core</div>
+            <div class="skill-item"><i class="fas fa-database"></i> SQL Server</div>
+            <div class="skill-item"><i class="fas fa-code-branch"></i> Git</div>
+            <!-- <div class="skill-item"><i class="fab fa-windows"></i> Azure DevOps</div> -->
+            <div class="skill-item"><i class="fas fa-code"></i> TypeScript</div>
+            <div class="skill-item"><i class="fas fa-server"></i> RESTful APIs</div>
+            <!-- <div class="skill-item"><i class="fas fa-credit-card"></i> Payment Integration</div> -->
+        </div>
+    </section>
+
+    <!-- Your existing projects section with all projects -->
+    <section id="projects">
+        <h2 class="section-title">Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3 class="project-title">DUNCAN_DMS</h3>
+                <p>Company responsible for generating and distributing electricity to consumers , ensuring a reliable and continuous power supply to home ,business and Industries</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">.NET Core</span>
+                    <span class="tech-tag">C#</span>
+                    <span class="tech-tag">SQL Server</span>
+                    <span class="tech-tag">Java Script</span>
+                    <span class="tech-tag">jQuery</span>
+                </div>
+                <!-- <div class="project-links">
+                    <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                    <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+                </div> -->
+            </div>
+    
+            <div class="project-card">
+                <h3 class="project-title">Matrimonial Management System</h3>
+                <p>THE FUTURE Education TRUST which meat to people daily for marriage update. they can message their client marriage details,such as Kundali,Gotra,Religion,Education,Job details etc.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">.NET Core</span>
+                    <span class="tech-tag">Angular</span>
+                    <span class="tech-tag">SQL Server</span>
+                    <!-- <span class="tech-tag">Google Maps API</span> -->
+                    <span class="tech-tag">C#</span>
+                </div>
+                <!-- <div class="project-links">
+                    <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                    <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+                </div> -->
+            </div>    
+        
+        </div>
+    
+    </section>
+
+    <section id="education">
+        <h2 class="section-title">Education</h2>
+        <div class="education-card">
+            <div class="experience-date">Graduated: 2021</div>
+            <div class="experience-title">Bachelor of Arts (B.A.)</div>
+            <div class="experience-company">VBS Purvanchal University, Jaunpur</div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <h2 class="section-title">Contact Me</h2>
+        <a href="tel:+916393834358" class="contact-link">
+            <i class="fas fa-phone"></i> +91 7347728781
+        </a>
+        <a href="mailto:ramdularechauhan2000@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i> Email Me
+        </a>
+        <a href="www.linkedin.com/in/ram-dulare-chauhan-449503298" target="_blank" class="contact-link">
+            <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Ram Dulare Chauhan. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Cursor glow effect
+        const cursor = document.createElement('div');
+        cursor.className = 'cursor-glow';
+        document.body.appendChild(cursor);
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+        });
+
+        // Intersection Observer for section animations
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => observer.observe(section));
+
+        // Skill items animation
+        const skillItems = document.querySelectorAll('.skill-item');
+        skillItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.animation = `fadeInUp 0.5s forwards ${index * 0.1}s`;
+        });
+
+        // Project cards animation
+        const projectCards = document.querySelectorAll('.project-card');
+        projectCards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+    </script>
+</body>
+</html>
